@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Your Playlists</title>
+  <link rel="stylesheet" href="../css/app.css">
+  <style>
+    /* Custom styles for the purple theme */
+    body {
+      background-color: #482D57; /* Matching purple theme */
+      color: white;
+      font-family: "Avenir", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #download-container {
+      padding: 50px;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .playlist-card {
+      background: #5C3A6F; /* Slightly darker purple */
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .playlist-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .playlist-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #86F3B8; /* Accent green */
+    }
+
+    .playlist-description {
+      font-size: 14px;
+      color: #e0e0e0;
+    }
+
+    #progress-container {
+      display: none;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    #progress-bar-container {
+      background: #5C3A6F;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 20px;
+      width: 100%;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    #progress-bar {
+      background-color: #86F3B8;
+      height: 100%;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    #progress-text {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #e0e0e0;
+    }
+
+    .navigate {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 30px;
+    background-color: #86F3B8; /* Accent green */
+    color: #482D57; /* Dark text for contrast */
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 30px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .navigate:hover {
+    background-color: #A5F3D3; /* Lighter green for hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  </style>
+</head>
+<body>
+  <div id="download-container">
+    <h1>Download Your Playlists</h1>
+    <div class="playlist-grid" id="playlistGrid"></div>
+    <div id="progress-container">
+      <h3 id="progress-title">Downloading...</h3>
+      <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+      </div>
+      <p id="progress-text">0% completed</p>
+    </div>
+    <div>
+      <a href="home.html" class="navigate">Back to Home</a>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const playlistGrid = document.getElementById("playlistGrid");
+      const progressContainer = document.getElementById("progress-container");
+      const progressBar = document.getElementById("progress-bar");
+      const progressText = document.getElementById("progress-text");
+      const progressTitle = document.getElementById("progress-title");
+
+      fetch("../playlists.json")
+        .then((response) => response.json())
+        .then((playlists) => {
+          playlists.forEach((playlist) => {
+            const card = document.createElement("div");
+            card.classList.add("playlist-card");
+            card.innerHTML = `
+              <div class="playlist-name">${playlist.playlist}</div>
+              <div class="playlist-description">${playlist.tracks.length} tracks</div>
+            `;
+            card.addEventListener("click", () => {
+              startDownload(playlist.playlist);
+            });
+            playlistGrid.appendChild(card);
+          });
+        })
+        .catch((error) => console.error("Error loading playlists:", error));
+
+      function startDownload(playlistName) {
+        progressContainer.style.display = "block";
+        progressTitle.textContent = `Downloading playlist: ${playlistName}`;
+        progressBar.style.width = "0%";
+        progressText.textContent = "0% completed";
+
+        fetch(`/start-downloads?playlist=${encodeURIComponent(playlistName)}`, {
+          method: "POST",
+        })
+          .then((response) => {
+            if (response.ok) {
+              listenForProgress(playlistName);
+            } else {
+              console.error(`Failed to start download for ${playlistName}`);
+            }
+          })
+          .catch((error) => console.error("Error initiating download:", error));
+      }
+
+      function listenForProgress(playlistName) {
+        const eventSource = new EventSource("/progress-updates");
+
+        eventSource.onmessage = (event) => {
+          const data = JSON.parse(event.data);
+          if (data.playlist === playlistName) {
+            const percentage = data.percentage;
+            progressBar.style.width = `${percentage}%`;
+            progressText.textContent = `${percentage}% completed`;
+
+            if (percentage >= 100) {
+              progressTitle.textContent = `Download completed for playlist: ${playlistName}`;
+              eventSource.close();
+            }
+          }
+        };
+
+        eventSource.onerror = () => {
+          console.error("Error with progress updates.");
+          eventSource.close();
+        };
+      }
+    });
+  </script>
+</body>
+</html>

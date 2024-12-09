@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AmplitudeJS Music Player</title>
+
+    <!-- Include Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i" rel="stylesheet">
+
+    <!-- Include Amplitude JS -->
+    <script src="https://cdn.jsdelivr.net/npm/amplitudejs"></script>
+
+    <!-- Include Style Sheet -->
+    <link rel="stylesheet" type="text/css" href="../css/app.css" />
+  </head>
+  <body>
+    <!-- Music Player -->
+    <div id="visualizations-player">
+      <!-- Album Cover -->
+      <div class="album-cover">
+        <img
+          id="large-now-playing-album-art"
+          data-amplitude-song-info="cover_art_url"
+          alt="AlbumArt"
+        />
+      </div>
+
+      <!-- Song Metadata -->
+      <div class="meta-data-container">
+        <span class="now-playing-name" data-amplitude-song-info="name"></span>
+        <span class="now-playing-artist-album">
+          <span class="now-playing-artist" data-amplitude-song-info="artist"></span> - 
+          <span class="now-playing-album" data-amplitude-song-info="album"></span>
+        </span>
+      </div>
+
+      <!-- Playback Controls -->
+      <div class="control-container">
+        <div class="amplitude-prev"></div>
+        <div class="amplitude-play-pause amplitude-paused"></div>
+        <div class="amplitude-next"></div>
+      </div>
+
+      <!-- Song Scrubber -->
+      <div class="song-navigation">
+        <input type="range" class="amplitude-song-slider" value="0" />
+        <div class="time-container">
+          <span class="amplitude-current-time"></span>
+          <span class="amplitude-time-remaining"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preload Images for Controls -->
+    <div id="pre-load-img-container" style="display: none;">
+      <img src="../img/play.svg" />
+      <img src="../img/pause.svg" />
+      <img src="../img/next.svg" />
+      <img src="../img/prev.svg" />
+    </div>
+
+    <!-- Include Custom JavaScript -->
+    <script src="../js/functions.js"></script>
+
+  </body>
+</html>

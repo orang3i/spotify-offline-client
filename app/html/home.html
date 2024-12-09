@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Spotify Playlists</title>
+  <link rel="stylesheet" href="../css/app.css">
+  <style>
+    /* Custom styles for the purple theme */
+    body {
+      background-color: #482D57; /* Matching purple theme */
+      color: white;
+      font-family: "Avenir", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #home-container {
+      padding: 50px;
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .playlist-card {
+      background: #5C3A6F; /* Slightly darker purple */
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .playlist-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .playlist-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .playlist-image {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .playlist-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #86F3B8; /* Accent green */
+    }
+
+    .playlist-description {
+      font-size: 14px;
+      color: #e0e0e0;
+    }
+
+    .logout {
+      display: inline-block;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 30px;
+      background-color: #86F3B8; /* Accent green */
+      color: #482D57; /* Dark text for contrast */
+      text-decoration: none;
+      border-radius: 30px;
+      margin-top: 30px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .logout:hover {
+      background-color: #A5F3D3; /* Lighter green for hover */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .navigate {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 30px;
+    background-color: #86F3B8; /* Accent green */
+    color: #482D57; /* Dark text for contrast */
+    text-decoration: none;
+    border-radius: 30px;
+    margin-top: 30px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .navigate:hover {
+    background-color: #A5F3D3; /* Lighter green for hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+  </style>
+</head>
+<body>
+  <div id="home-container">
+    <h1>Your Spotify Playlists</h1>
+    <div class="playlist-grid"></div>
+    <a href="auth.html" class="logout">Log Out</a>
+    <a href="download.html" class="navigate">Go to Downloads</a>
+  </div>
+  
+  <script src="../js/functions.js"></script>
+</body>
+</html>

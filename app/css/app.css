@@ -1,0 +1,127 @@
+/* Base styles */
+html, body {
+  background-color: #333;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Album Cover */
+.album-cover {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.album-cover img {
+  max-width: 100%; /* Full width of its container */
+  max-height: 300px; /* Increased height for larger album art */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+  display: block;
+}
+
+/* Song Metadata */
+.meta-data-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.meta-data-container span {
+  display: block;
+}
+
+.meta-data-container .now-playing-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.meta-data-container .now-playing-artist-album {
+  font-size: 1em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Playback Controls */
+.control-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around; /* Space out controls evenly */
+  align-items: center; /* Align controls vertically */
+  gap: 40px; /* Additional gap between controls */
+}
+
+.control-container div {
+  width: 40px; /* Slightly larger controls */
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.amplitude-prev {
+  background: url("../img/prev.svg") no-repeat center;
+}
+
+.amplitude-play-pause {
+  background: url("../img/play.svg") no-repeat center;
+}
+
+.amplitude-play-pause.amplitude-playing {
+  background: url("../img/pause.svg") no-repeat center;
+}
+
+.amplitude-next {
+  background: url("../img/next.svg") no-repeat center;
+}
+
+/* Song Scrubber */
+.song-navigation {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.song-navigation input[type="range"] {
+  width: 80%;
+  -webkit-appearance: none;
+  background-color: rgba(255, 255, 255, 0.25);
+  height: 5px;
+  border-radius: 5px;
+}
+
+.song-navigation input[type="range"]::-webkit-slider-thumb {
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.song-navigation input[type="range"]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.song-navigation .time-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* General Layout */
+#visualizations-player {
+  width: 325px;
+  padding: 25px;
+  background-color: #482D57;
+  border-radius: 20px;
+  margin: auto;
+  margin-top: 50px;
+  position: relative;
+}

@@ -1,0 +1,25 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Downloaded content
+app/songs/
+app/album-art/
+
+# Generated playlist data
+app/playlists.json
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp

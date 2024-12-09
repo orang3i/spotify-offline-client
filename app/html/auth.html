@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Spotify</title>
+
+    <!-- Include Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i" rel="stylesheet">
+
+    <!-- Include Auth CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/auth.css" />
+  </head>
+  <body>
+    <!-- Spotify Login Button Container -->
+    <div class="auth-container">
+      <div class="auth-content">
+        <h2>Connect with Spotify</h2>
+        <p>
+          Log in to your Spotify account to access personalized features, your favorite playlists, and more.
+        </p>
+        <button id="loginButton" class="spotify-login-btn">
+          Log in with Spotify
+        </button>
+      </div>
+    </div>
+
+    <!-- Add JavaScript -->
+    <script>
+      // Add click event listener to the button
+      document.getElementById('loginButton').addEventListener('click', () => {
+        // Redirect to the auth.js login route
+        window.location.href = 'http://localhost:3000/login';
+      });
+    </script>
+  </body>
+</html>
